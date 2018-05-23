@@ -1,0 +1,8 @@
+{
+  "name": "couchbaseapp",
+  "app_id": "8fd71f3d",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
