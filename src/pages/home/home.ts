@@ -22,18 +22,18 @@ export class HomePage {
       this.couchbase.getChangeListener().subscribe( data => {
         this.items.push({ 'title': 'Test 1'});
         
-        for (let i=0; i < data.length; i++) {
-          if (!data[i].hasOwnProperty("deleted") && data[i].id.indexOf("_design") === -1) {
-            this.couchbase.getDatabase().getDocument(data[i].id).then ( result => {
-              if (result.type === "list") {
-                this.zone.run( () => {
-                  this.items.push(result);
-                });
-              }
-            });
-            this.refresh();
-          }
-        }
+        // for (let i=0; i < data.length; i++) {
+        //   if (!data[i].hasOwnProperty("deleted") && data[i].id.indexOf("_design") === -1) {
+        //     this.couchbase.getDatabase().getDocument(data[i].id).then ( result => {
+        //       if (result.type === "list") {
+        //         this.zone.run( () => {
+        //           this.items.push(result);
+        //         });
+        //       }
+        //     });
+        //     this.refresh();
+        //   }
+        // }
       });
     }, 100);
   }
