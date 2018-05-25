@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class CouchbaseProvider {
 
-  private isInstantiated: boolean;
+  private isInstantiated: boolean = false;
   private database: Database;
   private listener: EventEmitter<any> = new EventEmitter<any>();
 
@@ -22,6 +22,17 @@ export class CouchbaseProvider {
     if (!this.isInstantiated) {
       platform.ready().then( () => {
        (new Couchbase()).openDatabase("nraboy").then(database => {
+
+         let prompt11 = this.alertCtrl.create({
+           title: 'Msg',
+           message: 'Instatiated',
+
+           buttons: [
+             { text: 'Cancel', handler: data => { } }
+           ]
+         });
+         prompt11.present();
+
             this.database = database;
             let views = {
               items: { 
@@ -38,7 +49,7 @@ export class CouchbaseProvider {
             });            
             this.isInstantiated = true;
             
-            let prompt = this.alertCtrl.create({
+            let prompt12 = this.alertCtrl.create({
               title: 'Msg',
               message: 'Instatiated',
 
@@ -46,15 +57,17 @@ export class CouchbaseProvider {
                 { text: 'Cancel', handler: data => { } }
               ]
             });
+            prompt12.present();
         }, error => {
 
-          let prompt = this.alertCtrl.create({
+          let prompt2 = this.alertCtrl.create({
             title: 'Error',
             message: error,
             
             buttons: [
               { text: 'Cancel', handler: data => { } }
-            ]})  
+            ]});
+            prompt2.present();
             console.error(error);
         });
       });
