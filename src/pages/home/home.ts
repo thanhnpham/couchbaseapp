@@ -57,9 +57,9 @@ export class HomePage {
       buttons: [
         { text: 'Cancel', handler: data => {} },
         { text: 'Save', handler: data => {
-            this.couchbase.getDatabase().createDocument( 
-              {type: 'list', title: data.title}
-            );
+            // this.couchbase.getDatabase().createDocument( 
+            //   {type: 'list', title: data.title}
+            // );
         }}
       ]
     });
