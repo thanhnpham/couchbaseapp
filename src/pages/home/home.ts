@@ -20,6 +20,8 @@ export class HomePage {
   public ionViewDidEnter() {
     setTimeout( () => {
       this.couchbase.getChangeListener().subscribe( data => {
+        this.items.push({ 'title': 'Test 1'});
+        
         for (let i=0; i < data.length; i++) {
           if (!data[i].hasOwnProperty("deleted") && data[i].id.indexOf("_design") === -1) {
             this.couchbase.getDatabase().getDocument(data[i].id).then ( result => {
@@ -52,14 +54,15 @@ export class HomePage {
       title: 'Todo Items',
       message: "Add a new item to the todo list",
       inputs: [
-        { name: 'title', placeholder: 'Title' }
+        { name: 'title', placeholder: 'Title' },
+      
       ],
       buttons: [
         { text: 'Cancel', handler: data => {} },
         { text: 'Save', handler: data => {
-            // this.couchbase.getDatabase().createDocument( 
-            //   {type: 'list', title: data.title}
-            // );
+            this.couchbase.getDatabase().createDocument( 
+              {type: 'list', title: data.title}
+           );
         }}
       ]
     });
