@@ -63,9 +63,9 @@ export class HomePage {
 
           this.items.push({'title': 'test insert 1'});
 
-          //   this.couchbase.getDatabase().createDocument( 
-          //     {type: 'list', title: data.title}
-          //  );
+             this.couchbase.getDatabase().createDocument( 
+               {type: 'list', title: data.title}
+            );
         }}
       ]
     });

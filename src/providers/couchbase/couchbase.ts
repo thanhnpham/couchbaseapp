@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, AlertController } from 'ionic-angular';
 import { Couchbase, Database } from 'cordova-couchbase/core';
 import 'rxjs/add/operator/map';
 /*
@@ -16,7 +16,7 @@ export class CouchbaseProvider {
   private database: Database;
   private listener: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public alertCtrl: AlertController) {
     console.log('Hello CouchbaseProvider Provider');
 
     if (!this.isInstantiated) {
@@ -37,8 +37,25 @@ export class CouchbaseProvider {
               this.listener.emit(change.detail);
             });            
             this.isInstantiated = true;
+            
+            let prompt = this.alertCtrl.create({
+              title: 'Msg',
+              message: 'Instatiated',
+
+              buttons: [
+                { text: 'Cancel', handler: data => { } }
+              ]
+            });
         }, error => {
-          console.error(error);
+
+          let prompt = this.alertCtrl.create({
+            title: 'Error',
+            message: error,
+            
+            buttons: [
+              { text: 'Cancel', handler: data => { } }
+            ]})  
+            console.error(error);
         });
       });
     }
